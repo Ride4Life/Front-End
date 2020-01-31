@@ -31,3 +31,16 @@ export const DELETE_DRIVER_DATA_FAILURE = "DELETE_DRIVER_DATA_FAILURE";
 export const DELETE_DRIVER_ACCOUNT = "DELETE_RIDER_ACCOUNT";
 
 //Editing Actions
+
+export const rideRequester = newRideRequester => dispatch =>{
+    dispatch({ type: FETCH_RIDER_DATA_START});
+    axios
+        .get(" ")
+        .then((res) =>{
+            dispatch({type:FETCH_RIDER_DATA_SUCCESS, payload: res.data});
+        })
+        .catch((err)=>{
+            dispatch({type:FETCH_RIDER_DATA_FAILURE}, payload:`${err.response.data} ${err.response.data}`)
+        });
+
+}
