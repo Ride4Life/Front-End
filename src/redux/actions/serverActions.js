@@ -32,6 +32,7 @@ export const DELETE_DRIVER_ACCOUNT = "DELETE_RIDER_ACCOUNT";
 
 //Editing Actions
 
+<<<<<<< HEAD
 
 // RIDE REQUESTER
 //Ride Requester: RIDE REQUESTED 

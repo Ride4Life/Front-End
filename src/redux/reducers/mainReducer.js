@@ -10,6 +10,7 @@ export const initialState = {
         userName: " ",
         isDriver: false,
         phoneNumber: " ",
+        address: " "
     },
     selectDriver:{
         firstName:" ",
@@ -18,6 +19,7 @@ export const initialState = {
         price:0,
         reviews: []
     },
+
 };
 
 export const currentUser = (state = initialState.currentUser, action) =>{
