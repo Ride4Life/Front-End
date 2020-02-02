@@ -31,3 +31,60 @@ export const DELETE_DRIVER_DATA_FAILURE = "DELETE_DRIVER_DATA_FAILURE";
 export const DELETE_DRIVER_ACCOUNT = "DELETE_RIDER_ACCOUNT";
 
 //Editing Actions
+
+
+// RIDE REQUESTER
+//Ride Requester: RIDE REQUESTED 
+export const rideRequester = () => dispatch => {
+    dispatch({type: FETCH_RIDER_DATA_START});
+    axios
+        .get("")
+        .then((res) => {
+            dispatch({type:FETCH_RIDER_DATA_SUCCESS, payload: res.data});
+        })
+        .catch((err)=>{
+            dispatch({type:FETCH_RIDER_DATA_FAILURE, payload: `${err.response}`});
+        })
+}
+
+//Ride Requester: POST RIDE REQUESTED 
+export const postRideRequester = () => dispatch => {
+    dispatch({type: POST_RIDER_DATA_START});
+    axios
+        .get("")
+        .then((res) => {
+            dispatch({type:POST_RIDER_DATA_SUCCESS, payload: res.data});
+        })
+        .catch((err)=>{
+            dispatch({type:POST_RIDER_DATA_FAILURE, payload: `${err.response}`});
+        })
+}
+
+//Ride Requester: DELETE RIDE REQUESTED 
+export const deleteRideRequester = () => dispatch => {
+    dispatch({type: DELETE_RIDER_DATA_START});
+    axios
+        .get("")
+        .then((res) => {
+            dispatch({type:DELETE_RIDER_DATA_SUCCESS, payload: res.data});
+        })
+        .catch((err)=>{
+            dispatch({type:DELETE_RIDER_DATA_FAILURE, payload: `${err.response}`});
+        })
+}
+
+
+
+
+//Ride Requester: DELETE RIDE REQUESTED 
+export const deleteRideRequester = () => dispatch => {
+    dispatch({type: DELETE_DRIVER_ACCOUNT});
+    axios
+        .get("")
+        .then((res) => {
+            dispatch({type:DELETE_RIDER_DATA_SUCCESS, payload: res.data});
+        })
+        .catch((err)=>{
+            dispatch({type:DELETE_RIDER_DATA_FAILURE, payload: `${err.response}`});
+        })
+}

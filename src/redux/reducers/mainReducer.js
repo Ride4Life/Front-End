@@ -1,4 +1,6 @@
 import { combineReducer } from 'redux';
+import { FETCH_RIDER_DATA_START, FETCH_RIDER_DATA_SUCCESS, FETCH_RIDER_DATA_FAILURE } from '../actions/serverActions'
+
 
 export const initialState = {
     currentUser:{
@@ -20,11 +22,14 @@ export const initialState = {
 
 export const currentUser = (state = initialState.currentUser, action) =>{
     switch(action.type){
-        case " ":
-            return{};
+        case FETCH_RIDER_DATA_START :
+            return{...state, error:""};
 
-        case " ":
-            return{};
+        case FETCH_RIDER_DATA_SUCCESS :
+            return{...state, error:""};
+        
+        case FETCH_RIDER_DATA_FAILURE :
+            return{...state, error:""};
 
         default:
             return state;
