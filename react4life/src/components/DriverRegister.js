@@ -1,127 +1,91 @@
 import React from 'react';
-import {
-  Button,
-  Form,
-  FormLayout,
-  TextField,
-  TextContainer,
-  Card,
-  ButtonGroup,
-  Typography
-} from '@material-ui/core';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 
-
-
-export default class Register extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            firstname: "",
-            lastname: "",
-            email: "",
-            username: "",
-            password: "",
-            confirm_password: "",
-            phone: ""
-        };
-    }
-
-    render() {
-        const {
-            firstname,
-            lastname,
-            email,
-            username,
-            password,
-            confirm_password,
-            phone
-        } = this.state;
-
-        return (
-            <div className="centerWithWidth">
-                <Form onSubmit={this.handleSubmit} implicitSubmit={true}>
-                    <FormLayout>
-                        <Card sectioned>
-                            <Card.Section>
-                                <Typography size="large">Registration</Typography>
-                            </Card.Section>
-                            <Card.Section>
-                                <TextContainer spacing="loose">
-                                    <FormLayout.Group>
-                                        <TextField
-                                          value={firstname}
-                                          onChange={this.handleChange("firstname")}
-                                          label="First Name"
-                                          type="text"
-                                          placeholder="Enter first name here..."
-                                          helpText={<span/>}
-                                        />
-                                        <TextField
-                                          value={lastname}
-                                          onChange={this.handleChange("lastname")}
-                                          label="Last Name"
-                                          type="text"
-                                          placeholder="Enter last name here..."
-                                          helpText={<span/>}
-                                        />
-                                        <TextField
-                                          value={username}
-                                          onChange={this.handleChange("username")}
-                                          label="Username"
-                                          type="text"
-                                          placeholder="Enter username here..."
-                                          helpText={<span/>}
-                                        />
-                                    </FormLayout.Group>
-                                    <FormLayout.Group>
-                                        <TextField
-                                          value={email}
-                                          onChange={this.handleChange("email")}
-                                          label="Email"
-                                          type="email"
-                                          placeholder="e.g. youremail@example.com"
-                                          helpText={<span />}
-                                        />
-                                    </FormLayout.Group>
-                                    <FormLayout.Group>
-                                        <TextField
-                                          value={password}
-                                          onChange={this.handleChange("password")}
-                                          label="Password"
-                                          type="password"
-                                          placeholder="Enter password here..."
-                                          helpText={<span />}
-                                        />
-                                        <TextField
-                                          value={confirm_password}
-                                          onChange={this.handleChange("confirm_password")}
-                                          label="Confirm Password"
-                                          type="password"
-                                          placeholder="Re-enter password here..."
-                                          helpText={<span />}
-                                        />
-                                        <TextField
-                                          value={phone}
-                                          onChange={this.handleChange("phone")}
-                                          label="Phone Number"
-                                          type="text"
-                                          placeholder="Enter phone number here..."
-                                          helpText={<span/>}
-                                        />
-                                    </FormLayout.Group>
-                                    <ButtonGroup>
-                                      <Button submit primary>
-                                        Register
-                                      </Button>
-                                      <Button>Already have an account?</Button>
-                                    </ButtonGroup>
-                                </TextContainer>
-                            </Card.Section>
-                        </Card>
-                    </FormLayout>
-                </Form>
-            </div>
-        )
-    }
+class DriverRegister extends React.Component {
+  render() {
+      return (
+          <Formik
+              initialValues={{
+                  firstName: '',
+                  lastName: '',
+                  email: '',
+                  username: '',
+                  password: '',
+                  confirmPassword: '',
+                  phone: ''
+              }}
+              validationSchema={Yup.object().shape({
+                  firstName: Yup.string()
+                      .required('First Name is required'),
+                  lastName: Yup.string()
+                      .required('Last Name is required'),
+                  email: Yup.string()
+                      .email('Email is invalid')
+                      .required('Email is required'),
+                  username: Yup.string()
+                      .required('Username is required'),
+                  password: Yup.string()
+                      .min(6, 'Password must be at least 6 characters')
+                      .required('Password is required'),
+                  confirmPassword:  Yup.string()
+                      .oneOf([Yup.ref('password'), null], 'Passwords must match')
+                      .required('Confirm Password is required'),
+                  phone: Yup.string()
+                      .required('Phone Number is required')
+              })}
+              onSubmit={fields => {
+                  alert('SUCCESS!! :-)\n\n' + JSON.stringify(fields, null, 4))
+              }}
+              render={({ errors, status, touched }) => (
+                  <Form>
+                      <div className="form-group">
+                          <label htmlFor="firstName">First Name</label>
+                          <Field name="firstName" type="text" className={'form-control' + (errors.firstName && touched.firstName ? ' is-invalid' : '')} />
+                          <ErrorMessage name="firstName" component="div" className="invalid-feedback" />
+                      </div>
+                      <div className="form-group">
+                          <label htmlFor="lastName">Last Name</label>
+                          <Field name="lastName" type="text" className={'form-control' + (errors.lastName && touched.lastName ? ' is-invalid' : '')} />
+                          <ErrorMessage name="lastName" component="div" className="invalid-feedback" />
+                      </div>
+                      <div className="form-group">
+                          <label htmlFor="email">Email</label>
+                          <Field name="email" type="text" className={'form-control' + (errors.email && touched.email ? ' is-invalid' : '')} />
+                          <ErrorMessage name="email" component="div" className="invalid-feedback" />
+                      </div>
+                      <div className="form-group">
+                          <label htmlFor="username">Username</label>
+                          <Field name="username" type="text" className={'form-control' + (errors.username && touched.username ? ' is-invalid' : '')} />
+                          <ErrorMessage name="username" component="div" className="invalid-feedback" />
+                      </div>
+                      <div className="form-group">
+                          <label htmlFor="password">Password</label>
+                          <Field name="password" type="password" className={'form-control' + (errors.password && touched.password ? ' is-invalid' : '')} />
+                          <ErrorMessage name="password" component="div" className="invalid-feedback" />
+                      </div>
+                      <div className="form-group">
+                          <label htmlFor="confirmPassword">Confirm Password</label>
+                          <Field name="confirmPassword" type="password" className={'form-control' + (errors.confirmPassword && touched.confirmPassword ? ' is-invalid' : '')} />
+                          <ErrorMessage name="confirmPassword" component="div" className="invalid-feedback" />
+                      </div>
+                      <div className="form-group">
+                          <label htmlFor="phone">Phone Number</label>
+                          <Field name="phone" type="text" className={'form-control' + (errors.phone && touched.phone ? ' is-invalid' : '')} />
+                          <ErrorMessage name="phone" component="div" className="invalid-feedback" />
+                      </div>
+                      <div className="form-group">
+                          <button type="submit" className="btn btn-primary mr-2">Register</button>
+                          <button type="reset" className="btn btn-secondary">Already have an account?</button>
+                      </div>
+                  </Form>
+              )}
+          />
+      )
+  }
 }
+
+export default {DriverRegister};
+
+
