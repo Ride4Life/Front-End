@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import { withFormik,Form, Field } from "formik";
 import * as Yup from "yup";
-//import axios from "axios";
 
 
 /*
@@ -11,6 +10,7 @@ Step 1) Create a form to register a new ride requester
 
 const RideRegisterForm = ({ values, errors, touched }) => {
     const [registerRider, setRegisterRider] = useState([]);
+    console.log(RideRegisterForm());
 
     return (
         <div className="registration-form">
