@@ -1,6 +1,4 @@
 import { combineReducer } from 'redux';
-import { FETCH_RIDER_DATA_START, FETCH_RIDER_DATA_SUCCESS, FETCH_RIDER_DATA_FAILURE } from '../actions/serverActions'
-
 
 export const initialState = {
     currentUser:{
@@ -19,24 +17,30 @@ export const initialState = {
         price:0,
         reviews: []
     },
-
+    error: "", 
+    isLoggedIn: false
 };
 
 export const currentUser = (state = initialState.currentUser, action) =>{
     switch(action.type){
-        case FETCH_RIDER_DATA_START :
-            return{...state, error:""};
-
-        case FETCH_RIDER_DATA_SUCCESS :
-            return{...state, error:""};
-        
-        case FETCH_RIDER_DATA_FAILURE :
-            return{...state, error:""};
+        case " ":
+            return{...state, 
+                    error:"",
+                    isLoggedIn:false, 
+                    currentUser: {
+                        firstName: action.payload.firstName,
+                        lastName:action.payload.lastName
+                    },
+            };
+        case " ":
+            return{...state, error:"", };
 
         default:
             return state;
     }
 };
+
+console.log(currentUser)
 
 export const mainReducer = (state = initialState, action) =>{
     switch(action.type){

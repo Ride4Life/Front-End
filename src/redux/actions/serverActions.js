@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axiosWithAuth from '../../authentication/axiosWithAuth';
 
 //All Ride Requester Actions
 export const FETCH_RIDER_DATA_START = "FETCH_RIDER_DATA_START";
@@ -32,13 +32,13 @@ export const DELETE_DRIVER_ACCOUNT = "DELETE_RIDER_ACCOUNT";
 
 //Editing Actions
 
-<<<<<<< HEAD
-
 // RIDE REQUESTER
-//Ride Requester: RIDE REQUESTED 
-export const rideRequester = () => dispatch => {
+
+
+//Ride Requester: Rider Data Requested from Server
+export const rideRequesterData = () => dispatch => {
     dispatch({type: FETCH_RIDER_DATA_START});
-    axios
+    axiosWithAuth()
         .get("")
         .then((res) => {
             dispatch({type:FETCH_RIDER_DATA_SUCCESS, payload: res.data});
@@ -48,11 +48,11 @@ export const rideRequester = () => dispatch => {
         })
 }
 
-//Ride Requester: POST RIDE REQUESTED 
+//Ride Requester: Rider Data pushed to server from SignUp Form. 
 export const postRideRequester = () => dispatch => {
     dispatch({type: POST_RIDER_DATA_START});
-    axios
-        .get("")
+    axiosWithAuth()
+        .post("")
         .then((res) => {
             dispatch({type:POST_RIDER_DATA_SUCCESS, payload: res.data});
         })
@@ -64,8 +64,8 @@ export const postRideRequester = () => dispatch => {
 //Ride Requester: DELETE RIDE REQUESTED 
 export const deleteRideRequester = () => dispatch => {
     dispatch({type: DELETE_RIDER_DATA_START});
-    axios
-        .get("")
+    axiosWithAuth()
+        .delete("")
         .then((res) => {
             dispatch({type:DELETE_RIDER_DATA_SUCCESS, payload: res.data});
         })
@@ -78,10 +78,10 @@ export const deleteRideRequester = () => dispatch => {
 
 
 //Ride Requester: DELETE RIDE REQUESTED 
-export const deleteRideRequester = () => dispatch => {
+export const deleteDriverAccount = () => dispatch => {
     dispatch({type: DELETE_DRIVER_ACCOUNT});
-    axios
-        .get("")
+    axiosWithAuth()
+        .delete("")
         .then((res) => {
             dispatch({type:DELETE_RIDER_DATA_SUCCESS, payload: res.data});
         })
