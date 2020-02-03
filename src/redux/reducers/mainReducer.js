@@ -29,7 +29,7 @@ export const currentUser = (state = initialState.currentUser, action) =>{
                     isLoggedIn:false, 
                     currentUser: {
                         firstName: action.payload.firstName,
-                        lastName:action.payload.lastName
+                        lastName:action.payload.lastName, 
                     },
             };
         case " ":
