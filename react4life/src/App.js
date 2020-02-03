@@ -1,12 +1,11 @@
 import React from 'react';
-import ReactDom from 'react-dom';
 import DriverRegister from "./components/DriverRegister";
 import './App.css';
 
 function App () {
   return (
     <div className="App">
-      <Register />
+      Welcome to the App
     </div>
   )
 }
