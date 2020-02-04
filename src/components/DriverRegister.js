@@ -86,6 +86,6 @@ class DriverRegister extends React.Component {
   }
 }
 
-export default {DriverRegister};
+export default DriverRegister;
 
 
