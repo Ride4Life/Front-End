@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { withFormik,Form, Field } from "formik";
+
 import * as Yup from "yup";
+
 /*
 Step 1) Create a form to register a new ride requester
 */
@@ -10,7 +12,7 @@ const RideRegisterForm = ({ values, errors, touched }) => {
         <div className="registration-form">
             <Form>
                 <label htmlFor="first_name">
-                    First Name:
+                    First Name:
                     <Field
                         id="firstname"
                         type="text"
@@ -22,7 +24,7 @@ const RideRegisterForm = ({ values, errors, touched }) => {
                     )}
                 </label>
                 <label htmlFor="lastname">
-                    Last Name:
+                    Last Name:
                     <Field
                         id="lastname"
                         type="text"
@@ -34,7 +36,7 @@ const RideRegisterForm = ({ values, errors, touched }) => {
                     )}
                 </label>
                 <label htmlFor="email">
-                    Email Adress:
+                    Email Adress:
                     <Field
                         id="email"
                         type="text"
@@ -70,7 +72,7 @@ const RideRegisterForm = ({ values, errors, touched }) => {
                     )}
                 </label>
                 <label htmlFor="confirm-password">
-                    Confirm Password: {" "}
+                    Confirm Password: {" "}
                     <Field
                         id="confirmpassword"
                         type="text"
