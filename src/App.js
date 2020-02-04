@@ -9,12 +9,15 @@ function App() {
     <div className="App">
       Welcome to the APP
       <div>
-        <RideRequesterForm /> 
-      </div>
-      <div>
-        <DriverRegister/>
-      </div>
-      
+          <RideRequesterForm /> 
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+      {/* <div>
+          <DriverRegister/>
+      </div> */}
     </div>
   );
 }
