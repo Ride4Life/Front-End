@@ -2,13 +2,15 @@ import { combineReducer } from 'redux';
 
 export const initialState = {
     currentUser:{
-        firstName : " ",
-        lastName: " ",
+        first_name : " ",
+        last_name: " ",
         email: " ",
-        userName: " ",
+        username: " ",
+        password: " ",
         isDriver: false,
-        phoneNumber: " ",
-        address: " "
+        phone_number: " ",
+        price: " ",
+        // address: " ",
     },
     selectDriver:{
         firstName:" ",

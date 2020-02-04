@@ -97,8 +97,8 @@ const RideRegisterForm = ({ values, errors, touched }) => {
 const FormikRideRegisterForm = withFormik({
     mapPropsToValues(props) {
         return {
-            firstname: props.firstname || "",
-            lastname: props.lastname || "",
+            first_name: props.firstname || "",
+            last_name: props.lastname || "",
             email: props.email || "",
             username: props.username || "",
             password: props.password || "",
@@ -108,16 +108,23 @@ const FormikRideRegisterForm = withFormik({
     },
     // validation schema//
     validationSchema: Yup.object().shape({
-        firstname: Yup.string().required('Please enter your first name'),
-        lastname: Yup.string().required('Please enter your last name'),
+        first_name: Yup.string().required('Please enter your first name'),
+        last_name: Yup.string().required('Please enter your last name'),
         email: Yup.string().required('Email is required'),
         username: Yup.string().required('Username is required'),
         password: Yup.string().required('Password is required')
             .min(6, 'Password must be at least 6 characters'),
         confirmpassword: Yup.string().required(),
     }),
-    handleSubmit() {
+    handleSubmit(data) {
         // axios call here
+        axiosWithAuth()
+        .post("/auth/signup", data)
+        .then((res)=>{
+            localStorage.setItem("token", res.message.payload);
+            console.log(res.message)
+        })
+        .catch((err)=> console.log("ERROR", err));
     }
 })(RideRegisterForm);
 export default FormikRideRegisterForm;
