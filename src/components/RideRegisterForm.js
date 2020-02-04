@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { withFormik,Form, Field } from "formik";
 import * as Yup from "yup";
+import axiosWithAuth from "../authentication/axiosWithAuth";
 /*
 Step 1) Create a form to register a new ride requester
 */
