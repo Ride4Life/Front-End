@@ -163,7 +163,7 @@ const FormikRideRegisterForm = withFormik({
         phone_number:Yup.string().required("Please enter your phone number")
     }),
     handleSubmit(values) {
-        console.log( {...values,isDriver:values.isDriver==="on"});
+        // console.log( {...values,isDriver:values.isDriver==="on"});
         // axios call here
         axiosWithAuth()
         .post("/auth/signup", {...values, isDriver:values.isDriver==="on"})
