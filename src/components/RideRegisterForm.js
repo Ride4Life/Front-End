@@ -1,17 +1,11 @@
-
 import React, { useState, useEffect } from "react";
 import { withFormik,Form, Field } from "formik";
 import * as Yup from "yup";
-
-
 /*
 Step 1) Create a form to register a new ride requester
 */
-
 const RideRegisterForm = ({ values, errors, touched }) => {
     const [registerRider, setRegisterRider] = useState([]);
-    console.log(RideRegisterForm());
-
     return (
         <div className="registration-form">
             <Form>
@@ -97,7 +91,6 @@ const RideRegisterForm = ({ values, errors, touched }) => {
         </div>
     );
 };
-
 const FormikRideRegisterForm = withFormik({
     mapPropsToValues(props) {
         return {
@@ -110,9 +103,7 @@ const FormikRideRegisterForm = withFormik({
             isARider: props.isARider || false,
         };
     },
-
     // validation schema//
-
     validationSchema: Yup.object().shape({
         firstname: Yup.string().required('Please enter your first name'),
         lastname: Yup.string().required('Please enter your last name'),
@@ -122,11 +113,8 @@ const FormikRideRegisterForm = withFormik({
             .min(6, 'Password must be at least 6 characters'),
         confirmpassword: Yup.string().required(),
     }),
-
     handleSubmit() {
-
         // axios call here
     }
-
 })(RideRegisterForm);
 export default FormikRideRegisterForm;
