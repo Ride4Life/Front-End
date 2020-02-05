@@ -115,7 +115,7 @@ const RideRegisterForm = ({ values, errors, touched, handleChange }) => {
                         <input
                             type="radio"
                             name="isDriver"
-                            checked={values.isDriver} 
+                            checked={!values.isDriver} 
                             onChange ={handleChange}
                         />
                     </label>
@@ -124,7 +124,7 @@ const RideRegisterForm = ({ values, errors, touched, handleChange }) => {
                         <input
                             type="radio"
                             name="isDriver"
-                            checked={!values.isDriver}
+                            checked={values.isDriver}
                             onChange ={handleChange}
                         />
                     </label>
@@ -163,8 +163,8 @@ const FormikRideRegisterForm = withFormik({
         phone_number:Yup.string().required("Please enter your phone number")
     }),
     handleSubmit(values) {
-        // console.log( {...values,isDriver:values.isDriver==="on"});
-        // axios call here
+        console.log( {...values,isDriver:values.isDriver==="on"});
+
         axiosWithAuth()
         .post("/auth/signup", {...values, isDriver:values.isDriver==="on"})
         .then((res)=>{
