@@ -42,6 +42,12 @@ const FormikUserLoginForm = withFormik({
         console.log("Values:", values)
         //axios here
         axiosWithAuth()
+        console.log()
+        .post("/auth/login", values)
+        .then((res)=>{
+            localStorage.setItem("token", res.message.payload);
+        })
+        .catch((err)=> console.log("ERROR", err));
     }
 })(UserLoginForm);
 export default FormikUserLoginForm;
