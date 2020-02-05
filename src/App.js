@@ -2,7 +2,7 @@ import React from 'react';
 
 import './App.css';
 import RideRequesterForm from './components/RideRegisterForm'
-import DriverRegister from './components/DriverRegister';
+import DriverRegisterForm from './components/DriverRegisterForm';
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
         <br/>
         <br/>
       {/* <div>
-          <DriverRegister/>
+          <DriverRegisterForm/>
       </div> */}
     </div>
   );
