@@ -1,5 +1,4 @@
 
-
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
 import Button from '@material-ui/core/Button';
@@ -19,7 +18,8 @@ class DriverProfilePage extends Component {
 	state = {
 		isEditing: false,
 		activeId: null,
-		showEstimate:false,
+        showEstimate:false,
+        profileBody: "",
 		driver:null,
 		trip:{}
 	}
