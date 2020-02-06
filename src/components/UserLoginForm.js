@@ -1,7 +1,7 @@
 import React from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from 'yup';
-
+import axiosWithAuth from "../authentication/axiosWithAuth";
 const UserLoginForm = ({ errors, touched }) => {
     return (
         <div className="login-form">
@@ -37,8 +37,15 @@ const FormikUserLoginForm = withFormik({
         password: Yup.string()
             .required("Password is required")
     }),
-    handleSubmit(values) {
-        console.log("Values:", values)
+    handleSubmit(data) {
+        console.log(data)
+        //axios here
+        axiosWithAuth()
+        .post("/auth/login", data)
+        .then((res)=>{
+            localStorage.setItem("token", res.message.payload);
+        })
+        .catch((err)=> console.log("ERROR", err));
     }
 })(UserLoginForm);
 export default FormikUserLoginForm;
