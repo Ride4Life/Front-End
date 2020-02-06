@@ -1,15 +1,16 @@
 import React from 'react';
 
 import './App.css';
-import RideRequesterForm from './components/RideRegisterForm'
-import DriverRegister from './components/DriverRegister';
+// import RideRequesterForm from './components/RideRegisterForm'
+// import DriverRegister from './components/DriverRegister';
+import ReviewForm from './components/ReviewForm';
 
 function App() {
   return (
     <div className="App">
       Welcome to the APP
       <div>
-          <RideRequesterForm /> 
+          {/* <RideRequesterForm />  */}
         </div>
         <br/>
         <br/>
@@ -18,6 +19,9 @@ function App() {
       {/* <div>
           <DriverRegister/>
       </div> */}
+      <div>
+      <ReviewForm />
+      </div>
     </div>
   );
 }
