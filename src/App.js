@@ -1,10 +1,15 @@
 import React from 'react';
 
 import './App.css';
+import './ProfilePage/Driver/Profile.css'
+
+
 // import RideRequesterForm from './components/RideRegisterForm'
 // import DriverRegister from './components/DriverRegister';
 // import ReviewForm from './components/ReviewForm';
-import DriverProfilePage from './ProfilePage/Driver/DriverProfilePage'
+
+import ProfilePage from './ProfilePage/Driver/ProfilePage'
+
 // import { func } from 'prop-types';
 
 
@@ -31,10 +36,9 @@ import DriverProfilePage from './ProfilePage/Driver/DriverProfilePage'
 
 function App() {
   return (
-    <div className="App">
-      <DriverProfilePage />
-    </div>
-  )
+
+    <ProfilePage />
+  );
 }
 
-export default App;
+export default App
