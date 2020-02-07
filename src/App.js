@@ -10,6 +10,27 @@ import RideRequesterForm from './components/RideRegisterForm'
 import FormikUserLoginForm from './components/UserLoginForm';
 import PrivateRoute from "./components/PrivateRoute";
 import { Nav } from "./components/Nav"
+import ReviewForm from "./components/ReviewForm";
+
+const ProfilePage = (props)=>{
+  return(
+    <>
+      <h1>This is temp Profile</h1>
+      <button 
+        onClick={
+
+          () =>{
+            const driverid = props.match.params.driverid;
+            props.history.push("/reviews/add", {driverid});
+          }
+        }
+      >
+        Add Review
+      </button>
+    </>
+  )
+}
+
 function App() {
   return (
     <Router>
@@ -19,9 +40,10 @@ function App() {
           <Route exact path="/" />
           <Route path="/login" component={FormikUserLoginForm} />
           <Route path="/register" component={RideRequesterForm} />
-          {/* <PrivateRoute path="/driver-dashboard" component={DriverDashboard} />
-          <PrivateRoute path="/rider-dashboard" component={RiderDashboard} /> */}
+          <Route path="/profile/:driverid" component={ProfilePage} />
+          <Route path="/reviews/add" component={ReviewForm}/>
         </Switch>
+
       </div>
     </Router>
   );
