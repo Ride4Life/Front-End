@@ -8,7 +8,7 @@ import {
 import './App.css';
 import RideRequesterForm from './components/RideRegisterForm'
 import FormikUserLoginForm from './components/UserLoginForm';
-import PrivateRoute from "./components/PrivateRouter/PrivateRoute";
+import PrivateRoute from "./components/PrivateRoute";
 import { Nav } from "./components/Nav"
 function App() {
   return (
