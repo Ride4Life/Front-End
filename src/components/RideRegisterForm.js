@@ -146,10 +146,10 @@ const FormikRideRegisterForm = withFormik({
             address: props.address || "",
             phone_number: props.phone_number || "",
             isDriver: props.isDriver || false,
+            history: props.history
             // isDriver: props.isDriver || false
         };
     },
-    
     validationSchema: Yup.object().shape({
         first_name: Yup.string().required('Please enter your first name'),
         last_name: Yup.string().required('Please enter your last name'),
@@ -164,11 +164,11 @@ const FormikRideRegisterForm = withFormik({
     }),
     handleSubmit(values) {
         console.log( {...values,isDriver:values.isDriver==="on"});
-
         axiosWithAuth()
         .post("/auth/signup", {...values, isDriver:values.isDriver==="on"})
         .then((res)=>{
             localStorage.setItem("token", res.message.payload);
+            values.history.push("/profiles");
         })
         .catch((err)=> console.log("ERROR", err));
     }
