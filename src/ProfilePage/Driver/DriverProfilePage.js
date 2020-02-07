@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
 import Button from '@material-ui/core/Button';
@@ -15,13 +14,17 @@ const useStyles = makeStyles();
 
 
 class DriverProfilePage extends Component {
-	state = {
-		isEditing: false,
-		activeId: null,
-        showEstimate:false,
-        profileBody: "",
-		driver:null,
-		trip:{}
+	constructor(props){
+		super(props);
+		this.state = {
+			isEditing: false,
+			activeId: null,
+			showEstimate:false,
+			profileBody: "",
+			driver:null,
+            trip:{},
+            currentDriver: {}
+		}
 	}
 	
 	editProfile = ()=>{
@@ -60,7 +63,7 @@ class DriverProfilePage extends Component {
 					   <div className="driver-profile-img-container ">
 						   <img src="https://gintoki23.tumblr.com/image/133797283889" alt="driver" className="round"/>
 					   </div>
-					   <h1>{this.props.currentDriver.username}</h1>
+					   <h1>{this.currentDriver.username}</h1>
 					   <h3>Uganda</h3>
 				   </header>
 				   <div className="stats-container">

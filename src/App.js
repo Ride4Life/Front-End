@@ -1,12 +1,11 @@
 import React from 'react';
 
 import './App.css';
-
-
-import DriverProfilePage from './ProfilePage/Driver/DriverProfilePage'
-
 // import RideRequesterForm from './components/RideRegisterForm'
-// import DriverRegisterForm from './components/DriverRegisterForm';
+// import DriverRegister from './components/DriverRegister';
+// import ReviewForm from './components/ReviewForm';
+import DriverProfilePage from './ProfilePage/Driver/DriverProfilePage'
+// import { func } from 'prop-types';
 
 
 // function App() {
@@ -14,7 +13,6 @@ import DriverProfilePage from './ProfilePage/Driver/DriverProfilePage'
 //     <div className="App">
 //       Welcome to the APP
 //       <div>
-//         <DriverProfilePage />
 //           {/* <RideRequesterForm />  */}
 //         </div>
 //         <br/>
@@ -22,16 +20,20 @@ import DriverProfilePage from './ProfilePage/Driver/DriverProfilePage'
 //         <br/>
 //         <br/>
 //       {/* <div>
-//           <DriverRegisterForm/>
+//           <DriverRegister/>
 //       </div> */}
+//       <div>
+//       <ReviewForm />
+//       </div>
 //     </div>
 //   );
 // }
 
-
 function App() {
   return (
-    <DriverProfilePage />
+    <div className="App">
+      <DriverProfilePage />
+    </div>
   )
 }
 
