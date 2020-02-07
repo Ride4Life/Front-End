@@ -6,10 +6,15 @@ import {
   Switch
 } from "react-router-dom";
 import './App.css';
+
+// import './ProfilePage/Driver/Profile.css'
+// import ProfilePage from './ProfilePage/Driver/ProfilePage.js'
+
 import RideRequesterForm from './components/RideRegisterForm'
 import FormikUserLoginForm from './components/UserLoginForm';
 import PrivateRoute from "./components/PrivateRoute";
 import { Nav } from "./components/Nav"
+import ProfilePage from './ProfilePage/Driver/ProfilePage';
 function App() {
   return (
     <Router>
@@ -26,4 +31,12 @@ function App() {
     </Router>
   );
 }
+
+// function App() {
+//   return (
+//     <ProfilePage />
+//   )
+// }
+
 export default App;
+
