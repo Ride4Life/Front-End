@@ -25,10 +25,12 @@ const UserLoginForm = ({ errors, touched }) => {
     );
 }
 const FormikUserLoginForm = withFormik({
-    mapPropsToValues({ username, password }) {
+    mapPropsToValues({ username, password, history}) {
+        console.log(history)
         return {
             username: username || "",
-            password: password || ""
+            password: password || "",
+            history
         };
     },
     validationSchema: Yup.object().shape({
@@ -37,13 +39,14 @@ const FormikUserLoginForm = withFormik({
         password: Yup.string()
             .required("Password is required")
     }),
-    handleSubmit(data) {
-        console.log(data)
+    handleSubmit(values) {
+        console.log(values)
         //axios here
         axiosWithAuth()
-        .post("/auth/login", data)
+        .post("/auth/login", values)
         .then((res)=>{
             localStorage.setItem("token", res.message.payload);
+            values.history.push("/profiles");
         })
         .catch((err)=> console.log("ERROR", err));
     }
