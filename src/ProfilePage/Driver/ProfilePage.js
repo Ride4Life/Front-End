@@ -13,6 +13,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import PageNavbar from './PageNavbar'
 
 
+
 function ProfilePage() {
 	let pageHeader = React.createRef();
     //Star Rating

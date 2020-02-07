@@ -11,8 +11,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import MotorcycleIcon from '@material-ui/icons/Motorcycle';
 import { Rating } from '@material-ui/lab'
+import { Formik, Form } from "formik";
+import * as yup from "yup";
 
-
+const ReviewSchema = yup.object().shape({
+    firstName: yup.string().required("This field is required."),
+    comment: yup.string().required("This field is required."),
+});
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
@@ -51,13 +56,13 @@ const useStyles = makeStyles(theme => ({
 
 export default function ReviewForm() {
     const classes = useStyles();
-    const [value, setValue] = useState(0);
+    
 
     return (
         <Container component="main" maxWidth="sm">
             <Typography component="h1" variant="h4">
                 Thank you for taking the time to leave a review for Ride For Life.
-        </Typography>
+            </Typography>
             <CssBaseline />
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
@@ -65,57 +70,74 @@ export default function ReviewForm() {
                 </Avatar>
                 <Typography component="h1" variant="h4">
                     How did we do?
-        </Typography>
+                </Typography>
                 <Box component="fieldset" mb={1} borderColor="transparent">
                     <Typography component="h1" variant="h6">
                         Overall Rating
                 </Typography>
-                    <Rating
-                        size="large"
-                        name="simple-controlled"
-                        value={value}
-                        onChange={(event, newValue) => {
-                            setValue(newValue);
-                        }}
-                    />
                 </Box>
-                <form className={classes.form} >
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                autoComplete="fname"
-                                name="firstName"
-                                variant="outlined"
-                                required
+                <Formik
+                    initialValues={{
+                        firstName: "",
+                        comment: "",
+                        rating: ""
+                    }}
+                    validationSchema={ReviewSchema}
+                    onSubmit={values => {
+                        console.log(values);
+                    }}
+                >
+                    {({ errors, handleChange, handleSubmit, touched }) => (
+                        <Form className={classes.form} >
+                             <Rating
+                        size="large"
+                        name="rating"
+                        onChange={handleChange}
+                    />
+                            <Grid container spacing={2}>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField
+                                        error={errors.firstName && touched.firstName}
+                                        autoComplete="fname"
+                                        name="firstName"
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        id="firstName"
+                                        label="First Name"
+                                        inputProps={{ style: { fontSize: 20 } }}
+                                        InputLabelProps={{ style: { fontSize: 20 } }}
+                                        autoFocus
+                                        helperText={
+                                            errors.firstName && touched.firstName ? errors.firstName : null
+                                        }
+                                        onChange={handleChange}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        fullWidth
+                                        id="comment"
+                                        label="How was your expierence?"
+                                        name="comment"
+                                        inputProps={{ style: { fontSize: 20 } }}
+                                        InputLabelProps={{ style: { fontSize: 20 } }}
+                                        onChange={handleChange}
+                                    />
+                                </Grid>
+                            </Grid>
+                            <Button
+                                type="submit"
                                 fullWidth
-                                id="firstName"
-                                label="First Name"
-                                inputProps={{style: {fontSize: 20}}} 
-                                InputLabelProps={{style: {fontSize: 20}}}
-                                autoFocus
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                fullWidth
-                                id="comment"
-                                label="How was your expierence?"
-                                name="comment"
-                                inputProps={{style: {fontSize: 20}}} 
-                                InputLabelProps={{style: {fontSize: 20}}}
-                            />
-                        </Grid>
-                    </Grid>
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="warning"
-                        className={classes.submit}
-                    >
-                        Submit Review
-          </Button>
-                </form>
+                                variant="contained"
+                                color="primary"
+                                className={classes.submit}
+                            >
+                                Submit Review
+                    </Button>
+                        </Form>
+                    )}
+                </Formik>
             </div>
             <Box mt={5}>
                 <Copyright />

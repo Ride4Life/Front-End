@@ -1,7 +1,7 @@
 import React from "react";
 import { withFormik, Form, Field } from "formik";
 import * as Yup from 'yup';
-
+import axiosWithAuth from "../authentication/axiosWithAuth";
 const UserLoginForm = ({ errors, touched }) => {
     return (
         <div className="login-form">
@@ -25,10 +25,12 @@ const UserLoginForm = ({ errors, touched }) => {
     );
 }
 const FormikUserLoginForm = withFormik({
-    mapPropsToValues({ username, password }) {
+    mapPropsToValues({ username, password, history}) {
+        console.log(history)
         return {
             username: username || "",
-            password: password || ""
+            password: password || "",
+            history
         };
     },
     validationSchema: Yup.object().shape({
@@ -38,7 +40,15 @@ const FormikUserLoginForm = withFormik({
             .required("Password is required")
     }),
     handleSubmit(values) {
-        console.log("Values:", values)
+        console.log(values)
+        //axios here
+        axiosWithAuth()
+        .post("/auth/login", values)
+        .then((res)=>{
+            localStorage.setItem("token", res.message.payload);
+            values.history.push("/profiles");
+        })
+        .catch((err)=> console.log("ERROR", err));
     }
 })(UserLoginForm);
 export default FormikUserLoginForm;

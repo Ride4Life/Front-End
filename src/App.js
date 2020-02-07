@@ -1,44 +1,42 @@
 import React from 'react';
-
+import {
+  BrowserRouter as Router,
+  Route,
+  NavLink,
+  Switch
+} from "react-router-dom";
 import './App.css';
-import './ProfilePage/Driver/Profile.css'
 
+// import './ProfilePage/Driver/Profile.css'
+// import ProfilePage from './ProfilePage/Driver/ProfilePage.js'
 
-// import RideRequesterForm from './components/RideRegisterForm'
-// import DriverRegister from './components/DriverRegister';
-// import ReviewForm from './components/ReviewForm';
-
-import ProfilePage from './ProfilePage/Driver/ProfilePage'
-
-// import { func } from 'prop-types';
-
-
-// function App() {
-//   return (
-//     <div className="App">
-//       Welcome to the APP
-//       <div>
-//           {/* <RideRequesterForm />  */}
-//         </div>
-//         <br/>
-//         <br/>
-//         <br/>
-//         <br/>
-//       {/* <div>
-//           <DriverRegister/>
-//       </div> */}
-//       <div>
-//       <ReviewForm />
-//       </div>
-//     </div>
-//   );
-// }
-
+import RideRequesterForm from './components/RideRegisterForm'
+import FormikUserLoginForm from './components/UserLoginForm';
+import PrivateRoute from "./components/PrivateRoute";
+import { Nav } from "./components/Nav"
+import ProfilePage from './ProfilePage/Driver/ProfilePage';
 function App() {
   return (
-
-    <ProfilePage />
+    <Router>
+      <div className="App">
+        <Nav />
+        <Switch>
+          <Route exact path="/" />
+          <Route path="/login" component={FormikUserLoginForm} />
+          <Route path="/register" component={RideRequesterForm} />
+          {/* <PrivateRoute path="/driver-dashboard" component={DriverDashboard} />
+          <PrivateRoute path="/rider-dashboard" component={RiderDashboard} /> */}
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
-export default App
+// function App() {
+//   return (
+//     <ProfilePage />
+//   )
+// }
+
+export default App;
+
