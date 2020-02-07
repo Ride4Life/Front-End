@@ -25,10 +25,12 @@ const UserLoginForm = ({ errors, touched }) => {
     );
 }
 const FormikUserLoginForm = withFormik({
-    mapPropsToValues({ username, password }) {
+    mapPropsToValues({ username, password, history}) {
+        console.log(history)
         return {
             username: username || "",
-            password: password || ""
+            password: password || "",
+            history
         };
     },
     validationSchema: Yup.object().shape({
@@ -44,6 +46,7 @@ const FormikUserLoginForm = withFormik({
         .post("/auth/login", data)
         .then((res)=>{
             localStorage.setItem("token", res.message.payload);
+            data.history.push("/profiles");
         })
         .catch((err)=> console.log("ERROR", err));
     }
