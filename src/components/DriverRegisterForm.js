@@ -3,7 +3,7 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 
-class DriverRegister extends React.Component {
+class DriverRegisterForm extends React.Component {
   render() {
       return (
           <Formik
@@ -86,6 +86,6 @@ class DriverRegister extends React.Component {
   }
 }
 
-export default DriverRegister;
+export default DriverRegisterForm;
 
 

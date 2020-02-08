@@ -46,9 +46,10 @@ const FormikUserLoginForm = withFormik({
         .post("/auth/login", values)
         .then((res)=>{
             localStorage.setItem("token", res.message.payload);
-            values.history.push("/profiles");
+            values.history.push("/profile/");
+            //should it be :userid or ${userid}
         })
-        .catch((err)=> console.log("ERROR", err));
+        .catch((err)=> console.log("ERROR", err),);
     }
 })(UserLoginForm);
 export default FormikUserLoginForm;
