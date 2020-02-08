@@ -12,6 +12,7 @@ import './App.css';
 
 import RideRequesterForm from './components/RideRegisterForm'
 import FormikUserLoginForm from './components/UserLoginForm';
+import SignUp from './components/EditProfileForm'
 import PrivateRoute from "./components/PrivateRoute";
 import { Nav } from "./components/Nav"
 import ProfilePage from './ProfilePage/Driver/ProfilePage';
@@ -24,6 +25,7 @@ function App() {
           <Route exact path="/" />
           <Route path="/login" component={FormikUserLoginForm} />
           <Route path="/register" component={RideRequesterForm} />
+          <Route path="/edit-profile" component={SignUp} />
           {/* <PrivateRoute path="/driver-dashboard" component={DriverDashboard} />
           <PrivateRoute path="/rider-dashboard" component={RiderDashboard} /> */}
         </Switch>
