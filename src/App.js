@@ -24,7 +24,7 @@ function App() {
           <Route exact path="/" />
           <Route path="/login" component={FormikUserLoginForm} />
           <Route path="/register" component={RideRequesterForm} />
-          <Route path="/profile/" component={ProfilePage} />
+          <Route path="/profile/:userID" component={ProfilePage} />
           <PrivateRoute path="/reviews/add" component={ReviewForm}/>
         </Switch>
       </div>

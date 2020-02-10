@@ -124,7 +124,7 @@ const FormikRideRegisterForm = withFormik({
             password: props.password || "",
             phone_number: props.phone_number || "",
             isDriver: props.isDriver || false,
-            history:props.history
+            //history:props.history
         };
     },
     validationSchema: Yup.object().shape({
@@ -142,7 +142,7 @@ const FormikRideRegisterForm = withFormik({
         .post("/auth/signup", {...values, isDriver:values.isDriver==="on"})
         .then((res)=>{
             localStorage.setItem("token", res.data.token);
-            values.history.push(`/profile/${res.data.userID}`);
+            //values.history.push(`/profile/${res.data.userID}`);
         })
         .catch((err)=> console.log("ERROR", err));
     }

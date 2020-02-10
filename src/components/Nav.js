@@ -19,7 +19,7 @@ const Nav = () => {
          <nav>
           <ul>
             <li>
-              <NavLink to="/">Home</NavLink>
+              <a href ="https://peaceful-roentgen-255f0d.netlify.com/index.html">Home</a>
             </li>
             <li>
               <NavLink to="/login">Login</NavLink>
