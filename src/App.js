@@ -1,26 +1,35 @@
 import React from 'react';
-import logo from './logo.svg';
+import {
+  BrowserRouter as Router,
+  Route,
+  NavLink,
+  Switch
+} from "react-router-dom";
+
 import './App.css';
+
+import RideRequesterForm from './components/RideRegisterForm'
+import FormikUserLoginForm from './components/UserLoginForm';
+import PrivateRoute from "./components/PrivateRoute";
+import Nav from "./components/Nav"
+import ProfilePage from './components/ProfilePage';
+import ReviewForm from "./components/ReviewForm";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Nav />
+        <Switch>
+          <Route exact path="/" />
+          <Route path="/login" component={FormikUserLoginForm} />
+          <Route path="/register" component={RideRequesterForm} />
+          <Route path="/profile/:userID" component={ProfilePage} />
+          <PrivateRoute path="/reviews/add" component={ReviewForm}/>
+        </Switch>
+      </div>
+    </Router>
   );
 }
-
 export default App;
+
