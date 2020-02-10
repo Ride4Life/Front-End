@@ -26,7 +26,6 @@ const UserLoginForm = ({ errors, touched }) => {
 }
 const FormikUserLoginForm = withFormik({
     mapPropsToValues({ username, password, history}) {
-        console.log(history)
         return {
             username: username || "",
             password: password || "",
@@ -40,15 +39,16 @@ const FormikUserLoginForm = withFormik({
             .required("Password is required")
     }),
     handleSubmit(values) {
-        console.log(values)
         //axios here
         axiosWithAuth()
         .post("/auth/login", values)
         .then((res)=>{
-            localStorage.setItem("token", res.message.payload);
-            values.history.push("/profiles");
+            console.log(values);
+            console.log(res);
+            localStorage.setItem("token", res.data.token);
+            values.history.push(`/profile/${res.data.userID}`);
         })
-        .catch((err)=> console.log("ERROR", err));
+        .catch((err)=> console.log("ERROR", err),);
     }
 })(UserLoginForm);
 export default FormikUserLoginForm;

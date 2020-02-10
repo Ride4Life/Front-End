@@ -13,10 +13,11 @@ import MotorcycleIcon from '@material-ui/icons/Motorcycle';
 import { Rating } from '@material-ui/lab'
 import { Formik, Form } from "formik";
 import * as yup from "yup";
+import axiosWithAuth from '../authentication/axiosWithAuth';
 
 const ReviewSchema = yup.object().shape({
-    firstName: yup.string().required("This field is required."),
-    comment: yup.string().required("This field is required."),
+    first_name: yup.string().required("This field is required."),
+    review: yup.string().required("This field is required."),
 });
 function Copyright() {
     return (
@@ -54,7 +55,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function ReviewForm() {
+export default function ReviewForm({location}) {
     const classes = useStyles();
     
 
@@ -78,13 +79,22 @@ export default function ReviewForm() {
                 </Box>
                 <Formik
                     initialValues={{
-                        firstName: "",
-                        comment: "",
+                        first_name: "",
+                        review: "",
                         rating: ""
                     }}
                     validationSchema={ReviewSchema}
                     onSubmit={values => {
                         console.log(values);
+                        const driverid = (location.state.driverid);
+                        console.log(driverid);
+                        //axios goes here
+                        axiosWithAuth()
+                        .post(`/profiles/${driverid}/review`, values)
+                        .then((res=>{
+                            values.history.push(`/profiles/${driverid}`);
+                        }))
+                        .catch((err)=> console.log("ERROR", err));
                     }}
                 >
                     {({ errors, handleChange, handleSubmit, touched }) => (
@@ -99,7 +109,7 @@ export default function ReviewForm() {
                                     <TextField
                                         error={errors.firstName && touched.firstName}
                                         autoComplete="fname"
-                                        name="firstName"
+                                        name="first_name"
                                         variant="outlined"
                                         required
                                         fullWidth
@@ -119,7 +129,7 @@ export default function ReviewForm() {
                                         fullWidth
                                         id="comment"
                                         label="How was your expierence?"
-                                        name="comment"
+                                        name="review"
                                         inputProps={{ style: { fontSize: 20 } }}
                                         InputLabelProps={{ style: { fontSize: 20 } }}
                                         onChange={handleChange}
