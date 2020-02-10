@@ -45,9 +45,9 @@ const FormikUserLoginForm = withFormik({
         axiosWithAuth()
         .post("/auth/login", values)
         .then((res)=>{
-            localStorage.setItem("token", res.message.payload);
-            values.history.push("/profile/");
-            //should it be :userid or ${userid}
+            console.log(res);
+            localStorage.setItem("token", res.data.token);
+            values.history.push(`/profile/${res.data.userID}`);
         })
         .catch((err)=> console.log("ERROR", err),);
     }

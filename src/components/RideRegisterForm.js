@@ -77,26 +77,6 @@ const RideRegisterForm = ({ values, errors, touched, handleChange }) => {
                             <p className="errors">{errors.password}</p>
                         )}
                     </label>
-                    <label htmlFor="confirm-password">
-                        Confirm Password: {" "}
-                        <Field
-                            id="confirmpassword"
-                            type="text"
-                            name="confirmpassword"
-                            placeholder="Confirm Password"
-                        />
-                    </label>
-                </div>
-                <div>
-                    <label htmlFor="address">
-                        Address: {" "}
-                        <Field
-                            id="address"
-                            type="text"
-                            name="address"
-                            placeholder="Your Home Address"
-                        />
-                    </label>
                 </div>
                 <div>
                     <label htmlFor="phone_number">
@@ -137,17 +117,14 @@ const RideRegisterForm = ({ values, errors, touched, handleChange }) => {
 const FormikRideRegisterForm = withFormik({
     mapPropsToValues(props) {
         return {
-            first_name: props.firstname || "",
-            last_name: props.lastname || "",
+            first_name: props.first_name || "",
+            last_name: props.last_name || "",
             email: props.email || "",
             username: props.username || "",
             password: props.password || "",
-            confirmpassword: props.confirmpassword || "",
-            address: props.address || "",
             phone_number: props.phone_number || "",
             isDriver: props.isDriver || false,
-            history: props.history
-            // isDriver: props.isDriver || false
+            history:props.history
         };
     },
     validationSchema: Yup.object().shape({
@@ -157,9 +134,6 @@ const FormikRideRegisterForm = withFormik({
         username: Yup.string().required('Username is required'),
         password: Yup.string().required('Password is required')
             .min(6, 'Password must be at least 6 characters'),
-        //Need to confirm this with Team tomorrow. 
-        confirmpassword: Yup.string().oneOf([Yup.ref("password"),null], "Password Must Match"),
-        address:Yup.string().required('Please enter your home address'),
         phone_number:Yup.string().required("Please enter your phone number")
     }),
     handleSubmit(values) {
@@ -167,8 +141,8 @@ const FormikRideRegisterForm = withFormik({
         axiosWithAuth()
         .post("/auth/signup", {...values, isDriver:values.isDriver==="on"})
         .then((res)=>{
-            localStorage.setItem("token", res.message.payload);
-            values.history.push("/profiles");
+            localStorage.setItem("token", res.data.token);
+            values.history.push(`/profile/${res.data.userID}`);
         })
         .catch((err)=> console.log("ERROR", err));
     }
