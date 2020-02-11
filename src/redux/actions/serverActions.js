@@ -55,7 +55,7 @@ export const putUserData = (userID) => dispatch => {
     dispatch({
         type: PUT_USER_DATA_START});
         axiosWithAuth()
-            .post(`/profile/${userID}`)
+            .put(`/profile/${userID}`)
             .then((res) => {
                 dispatch({type:PUT_USER_DATA_SUCCESS, payload: res.data});
             })

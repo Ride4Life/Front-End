@@ -3,13 +3,10 @@ import driver from '../assets/img/driver.png';
 import { Container } from 'reactstrap';
 
 import Button from "@material-ui/core/Button/Button";
-import { Link } from "react-router-dom"
-
 import {useSelector, useDispatch} from "react-redux";
 
 import {getUserData} from "../redux/actions/serverActions";
 import axiosWithAuth from '../authentication/axiosWithAuth';
-
 
 
 const ProfilePage = ({match}) => {
@@ -27,9 +24,9 @@ const ProfilePage = ({match}) => {
 		
 		navigator.geolocation.getCurrentPosition((position)=>{
 			const crd = position.coords;
-			console.log({username, latitude: String(crd.latitude), longitude: String(crd.longitude)});
+			console.log({username,latitude: String(crd.latitude), longitude: String(crd.longitude)});
 			axiosWithAuth()
-			.post("/ride/request", {username, latitude: String(crd.latitude), longitude: String(crd.longitude)})
+			.post("/ride/request", {username, phone_number, latitude: String(crd.latitude), longitude: String(crd.longitude)})
 			.then((res)=>{
 				console.log(res)
 				dispatch({type:"RIDE_REQUEST_SUCCESS", payload:res.data})
@@ -88,16 +85,11 @@ const ProfilePage = ({match}) => {
 						</label>
 					</Container>
 					<Container>
-						<Button variant="contained" color="primary"
+						<Button 
 						 onClick={handleRequestRide}
 						>
 							Request a Ride
 						</Button>
-					</Container>
-					<Container>
-						<Link to={`/edit-profile`}>
-							<Button variant="contained" color="secondary">Edit Profile</Button>
-						</Link>
 					</Container>
 				</Container>
 			</div>

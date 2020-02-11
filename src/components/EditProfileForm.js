@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+
+//Form Styling
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,18 +14,24 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
+//React-Redux
+import {useSelector, useDispatch } from "react-redux";
+import {putUserData} from "../redux/actions/serverActions";
+
+//Auth
+import axiosWithAuth from "../authentication/axiosWithAuth";
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color="inherit" href="https://peaceful-roentgen-255f0d.netlify.com/index.html">
         Ride For Life
       </Link>{' '}
       {new Date().getFullYear()}
@@ -54,9 +62,16 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3,0, 1),
   },
 }));
-
-export default function SignUp() {
+const SignUp= ({match}) => {
+  const {first_name,last_name,email,username,phone_number} = useSelector((state)=>{
+		return state.currentUser
+  })
   
+  const dispatch = useDispatch()
+	useEffect(()=>{
+		dispatch(putUserData(match.params.userID))
+  }, [putUserData])
+
   const classes = useStyles();
   const [value, setValue] = React.useState('female');
   const handleChange = event => {
@@ -78,11 +93,11 @@ export default function SignUp() {
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="fname"
-                name="firstName"
+                name="first_name"
                 variant="outlined"
                 required
                 fullWidth
-                id="firstName"
+                id="first_name"
                 label="First Name"
                 autoFocus
               />
@@ -92,9 +107,9 @@ export default function SignUp() {
                 variant="outlined"
                 required
                 fullWidth
-                id="lastName"
+                id="last_name"
                 label="Last Name"
-                name="lastName"
+                name="last_name"
                 autoComplete="lname"
               />
             </Grid>
@@ -125,169 +140,31 @@ export default function SignUp() {
                 variant="outlined"
                 required
                 fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Confirm New Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-            </Grid>
-            {/* <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I approve the changes made above."
-              />
-            </Grid> */}
-             <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
+                name="phone_number"
                 label="Phone Number"
-                type="phone number"
-                id="phoneNumber"
-                autoComplete="phone"
+                type="phone_number"
+                id="phone_number"
+                autoComplete="current-password"
               />
             </Grid>
-            
           </Grid>
-          <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">Please contact support to change Account Type</FormLabel>
-        <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
-          {/* <FormControlLabel value="female" control={<Radio />} label="Driver" /> */}
-          <FormControlLabel value="driver" control={<Radio />} label="Driver" />
-          <FormControlLabel
-            value="disabled"
-            disabled
-            control={<Radio />}
-            label="Rider"
-          />
-        </RadioGroup>
-        
-      </FormControl>
-      <Grid item xs={12}>
-            <TextField disabled
-            variant="outlined"
-            required
-            fullWidth
-            name="password"
-            label="Price"
-            type="price"
-            id="price"
-            autoComplete="price"
-            />
-        </Grid>
-
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
-
-            onSubmit={
-                  axiosWithAuth()
-                  .put(`/profiles/${userID}/request`, {first_name,last_name,email,username,phone_number })
-                  .then((res)=>{
-                    console.log(res)
-                    dispatch({type:"RIDE_REQUEST_SUCCESS", payload:res.data})
-                  })
-                  .catch((err)=>{
-                    console.log(err)
-                  })
-                }
-       
-           
+            onClick= {Redirect()}
           >
             Submit
           </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link href="#" variant="body2">
-                Contact support
-              </Link>
-            </Grid>
-          </Grid>
-          
-          
         </form>
       </div>
       <Box mt={5}>
         <Copyright />
       </Box>
     </Container>
-
-
-
-
-
-
-// //   return (
-// //     <div>
-// //       <FormControl component="fieldset" className={classes.formControl}>
-// //         <FormLabel component="legend">Gender</FormLabel>
-// //         <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
-// //           <FormControlLabel value="female" control={<Radio />} label="Female" />
-// //           <FormControlLabel value="male" control={<Radio />} label="Male" />
-// //           <FormControlLabel value="other" control={<Radio />} label="Other" />
-// //           <FormControlLabel
-// //             value="disabled"
-// //             disabled
-// //             control={<Radio />}
-// //             label="(Disabled option)"
-// //           />
-// //         </RadioGroup>
-// //       </FormControl>
-// //       <FormControl component="fieldset" className={classes.formControl}>
-// //         <FormLabel component="legend">Gender</FormLabel>
-// //         <RadioGroup aria-label="gender" name="gender2" value={value} onChange={handleChange}>
-// //           <FormControlLabel
-// //             value="female"
-// //             control={<Radio color="primary" />}
-// //             label="Female"
-// //             labelPlacement="start"
-// //           />
-// //           <FormControlLabel
-// //             value="male"
-// //             control={<Radio color="primary" />}
-// //             label="Male"
-// //             labelPlacement="start"
-// //           />
-// //           <FormControlLabel
-// //             value="other"
-// //             control={<Radio color="primary" />}
-// //             label="Other"
-// //             labelPlacement="start"
-// //           />
-// //           <FormControlLabel
-// //             value="disabled"
-// //             disabled
-// //             control={<Radio />}
-// //             label="(Disabled option)"
-// //             labelPlacement="start"
-// //           />
-// //         </RadioGroup>
-// //         <FormHelperText>labelPlacement start</FormHelperText>
-// //       </FormControl>
-// //     </div>
-//   );
-// }
-
-
-
-
   );
 }
+
+export default SignUp;
