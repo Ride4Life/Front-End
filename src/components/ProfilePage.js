@@ -3,10 +3,13 @@ import driver from '../assets/img/driver.png';
 import { Container } from 'reactstrap';
 
 import Button from "@material-ui/core/Button/Button";
+import { Link } from "react-router-dom"
+
 import {useSelector, useDispatch} from "react-redux";
 
 import {getUserData} from "../redux/actions/serverActions";
 import axiosWithAuth from '../authentication/axiosWithAuth';
+
 
 
 const ProfilePage = ({match}) => {
@@ -85,11 +88,16 @@ const ProfilePage = ({match}) => {
 						</label>
 					</Container>
 					<Container>
-						<Button 
+						<Button variant="contained" color="primary"
 						 onClick={handleRequestRide}
 						>
 							Request a Ride
 						</Button>
+					</Container>
+					<Container>
+						<Link to={`/edit-profile`}>
+							<Button variant="contained" color="secondary">Edit Profile</Button>
+						</Link>
 					</Container>
 				</Container>
 			</div>
