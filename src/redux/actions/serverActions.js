@@ -1,5 +1,4 @@
 import axiosWithAuth from '../../authentication/axiosWithAuth';
-import thunk from "redux-thunk";
 
 //Action Types
 export const GET_USER_DATA_START =  "GET_USER_DATA_START";
@@ -27,7 +26,6 @@ export const getUserData = (userID) => dispatch => {
     axiosWithAuth()
         .get(`/profile/${userID}`)
         .then((res) => {
-            console.log("getUserData", res.data)
             dispatch({type:GET_USER_DATA_SUCCESS, payload: res.data});
         })
         .catch((err)=>{
@@ -51,15 +49,18 @@ export const postUserData = () => dispatch => {
 }
 
 //PUT new user data to Server  
-export const putUserData = (userID) => dispatch => {
+export const putUserData = (userID,userData) => dispatch => {
     dispatch({
         type: PUT_USER_DATA_START});
         axiosWithAuth()
-            .put(`/profile/${userID}`)
+            .put(`/profile/${userID}`,userData)
             .then((res) => {
-                dispatch({type:PUT_USER_DATA_SUCCESS, payload: res.data});
+                console.log("Being Sent", userData);
+                console.log("Put Request",res.data.updatedUser);
+                dispatch({type:PUT_USER_DATA_SUCCESS, payload: res.data.updatedUser});
             })
             .catch((err)=>{
+                console.log("Put Requiest Errr",err);
                 dispatch({type:PUT_USER_DATA_FAILURE, payload: `${err.response}`});
             })
       
@@ -80,6 +81,7 @@ export const deleteUserData = (userID) => dispatch => {
             })
       
 }
+
 
 
 

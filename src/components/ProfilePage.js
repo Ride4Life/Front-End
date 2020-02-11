@@ -7,17 +7,19 @@ import {useSelector, useDispatch} from "react-redux";
 
 import {getUserData} from "../redux/actions/serverActions";
 import axiosWithAuth from '../authentication/axiosWithAuth';
+import EditProfileForm from "../components/EditProfileForm";
 
 
-const ProfilePage = ({match}) => {
+const ProfilePage = ({match, history}) => {
 	const {first_name,last_name,email,username,phone_number} = useSelector((state)=>{
 		return state.currentUser
 	})
 
 	const dispatch = useDispatch()
+	const userID = match.params.userID
 	useEffect(()=>{
-		dispatch(getUserData(match.params.userID))
-	}, [getUserData])
+		dispatch(getUserData(userID))
+	}, [userID,dispatch])
 
 	const handleRequestRide = (e)=>{
 		e.preventDefault();
@@ -35,8 +37,11 @@ const ProfilePage = ({match}) => {
 				console.log(err)
 			})
 		})
-
-		
+			
+	}
+	const editReviewForm = (e)=>{
+		e.preventDefault();
+		history.push(`/profile/${userID}/edit`);
 	}
 
 	return (
@@ -85,10 +90,21 @@ const ProfilePage = ({match}) => {
 						</label>
 					</Container>
 					<Container>
-						<Button 
+						<Button
+						 variant="contained"
+						 color="skyblue"
 						 onClick={handleRequestRide}
 						>
 							Request a Ride
+						</Button>
+					</Container>
+					<Container>
+						<Button 
+						 variant="contained"
+						 color="secondary"
+						 onClick={editReviewForm}
+						>
+							Edit Profile
 						</Button>
 					</Container>
 				</Container>

@@ -1,94 +1,79 @@
-import React, {useEffect} from 'react';
+import React, {useState,useEffect} from 'react';
 
 //Form Styling
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
+
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 
 //React-Redux
-import {useSelector, useDispatch } from "react-redux";
+import {useSelector,useDispatch } from "react-redux";
 import {putUserData} from "../redux/actions/serverActions";
 
-//Auth
-import axiosWithAuth from "../authentication/axiosWithAuth";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://peaceful-roentgen-255f0d.netlify.com/index.html">
-        Ride For Life
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(({
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop:"8px",
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
   },
   avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    margin:"1px",
+    backgroundColor: "skyblue"
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
+    marginTop:"3px"
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin:"3px, 0px, 2px"
   },
   formControl: {
-    margin: theme.spacing(3,0, 1),
+    margin: "3px,0px, 1px"
   },
 }));
-const SignUp= ({match}) => {
-  const {first_name,last_name,email,username,phone_number} = useSelector((state)=>{
-		return state.currentUser
-  })
+
+const EditProfileForm = ({match,history}) => {
+  const currentUser = useSelector((state)=>{
+    return state.currentUser;
+  });
+  const [userData, setUserData] = useState(currentUser)
   
+  const handleUserInfoChange = (e)=>{
+     const name= e.currentTarget.name;
+     const value=e.currentTarget.value;
+     setUserData({...userData,[name]:value});
+  }
+  const userID = match.params.userID
   const dispatch = useDispatch()
-	useEffect(()=>{
-		dispatch(putUserData(match.params.userID))
-  }, [putUserData])
+  const updateUserProfile = (e)=>{
+    e.preventDefault();
+    dispatch(putUserData(
+      userID,userData
+    ));
+    history.push(`/profile/${userID}`)
+	}
+
 
   const classes = useStyles();
-  const [value, setValue] = React.useState('female');
-  const handleChange = event => {
-    setValue(event.target.value);
-  };
-
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+      <div className={"classes.paper"}>
+        <Avatar className={"classes.avatar"}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Edit Ride4Life Profile
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={"classes.form"} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -100,6 +85,8 @@ const SignUp= ({match}) => {
                 id="first_name"
                 label="First Name"
                 autoFocus
+                value ={userData.first_name}
+                onChange={handleUserInfoChange}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -111,6 +98,9 @@ const SignUp= ({match}) => {
                 label="Last Name"
                 name="last_name"
                 autoComplete="lname"
+                value={userData.last_name}
+                onChange={handleUserInfoChange}
+    
               />
             </Grid>
             <Grid item xs={12}>
@@ -122,6 +112,8 @@ const SignUp= ({match}) => {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={userData.email}
+                onChange={handleUserInfoChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -133,6 +125,8 @@ const SignUp= ({match}) => {
                 label="Username"
                 name="username"
                 autoComplete="username"
+                value={userData.username}
+                onChange={handleUserInfoChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -145,6 +139,8 @@ const SignUp= ({match}) => {
                 type="phone_number"
                 id="phone_number"
                 autoComplete="current-password"
+                value={userData.phone_number}
+                onChange={handleUserInfoChange}
               />
             </Grid>
           </Grid>
@@ -153,18 +149,26 @@ const SignUp= ({match}) => {
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
-            onClick= {Redirect()}
+            className={"classes.submit"}
+            onClick= {updateUserProfile}
           >
             Submit
           </Button>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={"classes.submit"}
+            onClick= {updateUserProfile}
+          >
+            Delete
+
+          </Button>
         </form>
       </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
     </Container>
   );
 }
 
-export default SignUp;
+export default EditProfileForm;
